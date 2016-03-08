@@ -37,15 +37,12 @@ class game extends egret.DisplayObjectContainer {
     text:egret.TextField;
     yang:egret.Bitmap;
     tw
-    private loadingView:LoadingUI;
 
     public constructor(){
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage,this);
 }
     public onAddToStage(event:egret.Event):void{
-        this.loadingView = new LoadingUI();
-        this.stage.addChild(this.loadingView);
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onLaodComplete,this);
         RES.loadConfig("resource/default.res.json","resource/");
     }
@@ -60,7 +57,6 @@ class game extends egret.DisplayObjectContainer {
 
     }
     private onResourceComplete(event:RES.ResourceEvent):void{
-            this.stage.removeChild(this.loadingView)
 
         this.createBitmap();
         this.createText();

@@ -14,8 +14,6 @@ var game = (function (_super) {
     }
     var d = __define,c=game;p=c.prototype;
     p.onAddToStage = function (event) {
-        this.loadingView = new LoadingUI();
-        this.stage.addChild(this.loadingView);
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onLaodComplete, this);
         RES.loadConfig("resource/default.res.json", "resource/");
     };
@@ -27,7 +25,6 @@ var game = (function (_super) {
         RES.loadGroup("preload");
     };
     p.onResourceComplete = function (event) {
-        this.stage.removeChild(this.loadingView);
         this.createBitmap();
         this.createText();
     };
