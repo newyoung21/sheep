@@ -197,15 +197,15 @@ var game = (function (_super) {
         this.leftRun.touchEnabled = true;
         this.leftRun.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.starMove, this);
         var t = Math.floor(Math.random() * 10);
-        var time = 1500;
+        var time = 1200;
         if (this.N > 50) {
-            time = 1200;
-        }
-        if (this.N > 100) {
             time = 1000;
         }
+        if (this.N > 100) {
+            time = 800;
+        }
         if (this.N > 200) {
-            time = 700;
+            time = 500;
         }
         if (t > 4 && t < 7) {
             this.leftRun.name = "02";
@@ -324,9 +324,15 @@ var game = (function (_super) {
             this.a++;
             this.createHpmc();
             if (this.a > 3) {
-                this.getChildByName("01").removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.starMove, this);
-                this.getChildByName("02").removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.starMove, this);
-                this.getChildByName("03").removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.starMove, this);
+                if (this.getChildByName("01")) {
+                    this.getChildByName("01").removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.starMove, this);
+                }
+                if (this.getChildByName("02")) {
+                    this.getChildByName("02").removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.starMove, this);
+                }
+                if (this.getChildByName("03")) {
+                    this.getChildByName("03").removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.starMove, this);
+                }
                 this.m = false;
                 setTimeout(egret.Tween.removeAllTweens, 600);
                 this.sound.play().stop();
