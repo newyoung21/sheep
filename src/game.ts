@@ -241,20 +241,29 @@ class game extends egret.DisplayObjectContainer {
         this.leftRun.touchEnabled=true;
         this.leftRun.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.starMove,this);
         var t:number=Math.floor(Math.random()*10);
-
+        var time:number=1500;
+        if(this.N>50){
+            time=1200;
+        }
+        if(this.N>100){
+            time=1000;
+        }
+        if(this.N>200){
+            time=700;
+        }
         if(t > 4 && t < 7){
             this.leftRun.name="02";
            this.tw = egret.Tween.get(this.leftRun);
-            this.tw.to({x:30,y:n},2000).call(this.langAnimation,this,[this.leftRun]);
+            this.tw.to({x:30,y:n},time+500).call(this.langAnimation,this,[this.leftRun]);
         }else if(t>7){
             this.leftRun.name="03";
             this.tw = egret.Tween.get(this.leftRun);
-            this.tw.to({x:30,y:n},1000).call(this.langAnimation,this,[this.leftRun]);
+            this.tw.to({x:30,y:n},time).call(this.langAnimation,this,[this.leftRun]);
             this.tw.pause()
         }else {
             this.leftRun.name="01";
              this.tw = egret.Tween.get(this.leftRun);
-            this.tw.to({x:30,y:n},3000).call(this.langAnimation,this,[this.leftRun]);
+            this.tw.to({x:30,y:n},time+1000).call(this.langAnimation,this,[this.leftRun]);
         }
 
     }
@@ -364,7 +373,9 @@ class game extends egret.DisplayObjectContainer {
             this.a++;
             this.createHpmc();
             if(this.a > 3){
-                this.leftRun.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.starMove,this);
+                this.getChildByName("01").removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.starMove,this);
+                this.getChildByName("02").removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.starMove,this);
+                this.getChildByName("03").removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.starMove,this);
                 this.m=false;
                 setTimeout(egret.Tween.removeAllTweens,600);
                this.sound.play().stop();
