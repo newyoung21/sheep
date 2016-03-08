@@ -60,9 +60,8 @@ class game extends egret.DisplayObjectContainer {
 
     }
     private onResourceComplete(event:RES.ResourceEvent):void{
-        if (event.groupName == "preload") {
             this.stage.removeChild(this.loadingView)
-        }
+
         this.createBitmap();
         this.createText();
     }

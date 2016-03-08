@@ -27,9 +27,7 @@ var game = (function (_super) {
         RES.loadGroup("preload");
     };
     p.onResourceComplete = function (event) {
-        if (event.groupName == "preload") {
-            this.stage.removeChild(this.loadingView);
-        }
+        this.stage.removeChild(this.loadingView);
         this.createBitmap();
         this.createText();
     };
