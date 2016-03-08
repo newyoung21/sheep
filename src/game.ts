@@ -98,11 +98,11 @@ class game extends egret.DisplayObjectContainer {
 
     }
    private onTouch():void{
+        this.removeChildren()
         this.onStart();
+       this.getsound();
     }
     private onStart():void{
-        if(this.d==true){this.removeChildren()}
-        if(this.d==true){this.getsound();}
         this.getbitmap();
         this.onTimer();
         this.createHpmc();
@@ -283,7 +283,7 @@ class game extends egret.DisplayObjectContainer {
 
 
     private stopMove(e:egret.TouchEvent):void{
-        this.zhengzha.removeEventListener(egret.TouchEvent.TOUCH_MOVE,this.onMove,this);
+        this.zhengzha.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onMove,this);
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE,this.onMove,this);
        var stopObject=e.currentTarget;
        this.removeChild(stopObject);

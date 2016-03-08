@@ -62,15 +62,11 @@ var game = (function (_super) {
         this.label.size = 24;
     };
     p.onTouch = function () {
+        this.removeChildren();
         this.onStart();
+        this.getsound();
     };
     p.onStart = function () {
-        if (this.d == true) {
-            this.removeChildren();
-        }
-        if (this.d == true) {
-            this.getsound();
-        }
         this.getbitmap();
         this.onTimer();
         this.createHpmc();
@@ -235,7 +231,7 @@ var game = (function (_super) {
         this.draggedObject.y = e.stageY;
     };
     p.stopMove = function (e) {
-        this.zhengzha.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.onMove, this);
+        this.zhengzha.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onMove, this);
         this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.onMove, this);
         var stopObject = e.currentTarget;
         this.removeChild(stopObject);
