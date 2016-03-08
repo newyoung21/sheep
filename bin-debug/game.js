@@ -324,8 +324,12 @@ var game = (function (_super) {
             this.a++;
             this.createHpmc();
             if (this.a > 3) {
-                this.left.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.starMove, this);
-                this.left.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.starMove, this);
+                if (this.left) {
+                    this.left.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.starMove, this);
+                }
+                if (this.leftRun) {
+                    this.leftRun.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.starMove, this);
+                }
                 if (this.getChildByName("01")) {
                     this.getChildByName("01").removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.starMove, this);
                 }
