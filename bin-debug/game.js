@@ -14,18 +14,36 @@ var game = (function (_super) {
     }
     var d = __define,c=game;p=c.prototype;
     p.onAddToStage = function (event) {
+        this.loadingView = new LoadingUI();
+        this.stage.addChild(this.loadingView);
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onLaodComplete, this);
         RES.loadConfig("resource/default.res.json", "resource/");
     };
     p.onLaodComplete = function () {
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onLaodComplete, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceComplete, this);
-        RES.loadGroup("loading");
+        RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
+        RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
+        RES.loadGroup("loading", 1);
+        RES.loadGroup("preload", 0);
     };
     p.onResourceComplete = function (event) {
-        this.createBitmap();
-        this.createText();
-        RES.loadGroup("preload");
+        if (event.groupName == "preload") {
+            this.stage.removeChild(this.loadingView);
+            RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceComplete, this);
+            RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
+            RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
+            this.createBitmap();
+        }
+    };
+    p.onResourceLoadError = function (event) {
+        console.warn("Group:" + event.groupName + " has failed to load");
+        this.onResourceComplete(event);
+    };
+    p.onResourceProgress = function (event) {
+        if (event.groupName == "preload") {
+            this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
+        }
     };
     p.createBitmap = function () {
         this.homepage = new egret.Bitmap();
@@ -48,8 +66,6 @@ var game = (function (_super) {
         this.addChild(this.start);
         this.start.touchEnabled = true;
         this.start.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouch, this);
-    };
-    p.createText = function () {
         this.label = new egret.TextField();
         this.label.text = "将小羊拖拽到下方的羊圈中";
         this.addChild(this.label);
@@ -61,6 +77,7 @@ var game = (function (_super) {
         this.label.size = 24;
     };
     p.onTouch = function () {
+        this.start.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouch, this);
         this.removeChildren();
         this.onStart();
         this.getsound();
@@ -297,6 +314,7 @@ var game = (function (_super) {
             this.a++;
             this.createHpmc();
             if (this.a > 3) {
+                this.leftRun.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.starMove, this);
                 this.m = false;
                 setTimeout(egret.Tween.removeAllTweens, 600);
                 this.sound.play().stop();

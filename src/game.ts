@@ -37,31 +37,48 @@ class game extends egret.DisplayObjectContainer {
     text:egret.TextField;
     yang:egret.Bitmap;
     tw
+    private loadingView:LoadingUI;
 
     public constructor(){
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage,this);
 }
     public onAddToStage(event:egret.Event):void{
+        this.loadingView = new LoadingUI();
+        this.stage.addChild(this.loadingView);
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onLaodComplete,this);
         RES.loadConfig("resource/default.res.json","resource/");
     }
     private onLaodComplete():void{
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onLaodComplete,this);
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceComplete,this);
-        RES.loadGroup("loading");
-
-
-
+        RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
+        RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
+        RES.loadGroup("loading",1);
+        RES.loadGroup("preload",0);
 
     }
     private onResourceComplete(event:RES.ResourceEvent):void{
-
-        this.createBitmap();
-        this.createText();
-        RES.loadGroup("preload");
+        if (event.groupName == "preload") {
+            this.stage.removeChild(this.loadingView);
+            RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this. onResourceComplete, this);
+            RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
+            RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
+            this.createBitmap();
+        }
     }
-    public createBitmap():void{
+    private onResourceLoadError(event:RES.ResourceEvent):void{
+        console.warn("Group:" + event.groupName + " has failed to load");
+        this.onResourceComplete(event);
+    }
+
+    private onResourceProgress(event:RES.ResourceEvent):void{
+        if (event.groupName == "preload") {
+            this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
+        }
+    }
+
+    private createBitmap():void{
        this.homepage =new egret.Bitmap();
         this.homepage.texture = RES.getRes("homepage_jpg");
         this.addChild(this.homepage);
@@ -82,9 +99,6 @@ class game extends egret.DisplayObjectContainer {
         this.addChild(this.start);
         this.start.touchEnabled=true;
         this.start.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTouch,this);
-
-    }
-    private createText():void{
         this.label =new egret.TextField();
         this.label.text="将小羊拖拽到下方的羊圈中";
         this.addChild(this.label);
@@ -95,9 +109,9 @@ class game extends egret.DisplayObjectContainer {
         this.label.stroke=3;
         this.label.size=24;
 
-
     }
    private onTouch():void{
+       this.start.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onTouch,this);
         this.removeChildren()
         this.onStart();
        this.getsound();
@@ -350,6 +364,7 @@ class game extends egret.DisplayObjectContainer {
             this.a++;
             this.createHpmc();
             if(this.a > 3){
+                this.leftRun.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.starMove,this);
                 this.m=false;
                 setTimeout(egret.Tween.removeAllTweens,600);
                this.sound.play().stop();
