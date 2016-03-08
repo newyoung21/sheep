@@ -50,8 +50,7 @@ class game extends egret.DisplayObjectContainer {
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onLaodComplete,this);
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE,this.onResourceComplete,this);
         RES.loadGroup("loading");
-        RES.loadGroup("sound");
-        RES.loadGroup("preload");
+
 
 
 
@@ -60,6 +59,7 @@ class game extends egret.DisplayObjectContainer {
 
         this.createBitmap();
         this.createText();
+        RES.loadGroup("preload");
     }
     public createBitmap():void{
        this.homepage =new egret.Bitmap();

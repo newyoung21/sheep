@@ -22,8 +22,7 @@
 
 	],
 	"groups": [
-		{"name":"loading","keys":"logo_png,title_png,homepage_jpg,start_btn_png"},
-		{"name":"sound","keys":"bg_mp3"},
+		{"name":"loading","keys":"logo_png,title_png,homepage_jpg,start_btn_png,bg_mp3"},
 		{"name":"preload","keys":"lang_json,lang_png,bg_jpg,yang_png,HuojiMc_png,HuojiMc_json,yang_png,hpMc_png,hpMc_json,panel_png,hpMc_json,hpMc_png,wText_json,wText_png,replay_btn_png"}
 	]
 }

@@ -21,12 +21,11 @@ var game = (function (_super) {
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onLaodComplete, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceComplete, this);
         RES.loadGroup("loading");
-        RES.loadGroup("sound");
-        RES.loadGroup("preload");
     };
     p.onResourceComplete = function (event) {
         this.createBitmap();
         this.createText();
+        RES.loadGroup("preload");
     };
     p.createBitmap = function () {
         this.homepage = new egret.Bitmap();
