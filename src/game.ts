@@ -208,7 +208,7 @@ class game extends egret.DisplayObjectContainer {
     }
 
     private onTimer():void{
-      this.timer  = new egret.Timer(1000,0);
+      this.timer  = new egret.Timer(500,0);
         this.timer.addEventListener(egret.TimerEvent.TIMER,this.timeFunc,this);
         this.timer.start();
 

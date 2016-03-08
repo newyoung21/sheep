@@ -168,7 +168,7 @@ var game = (function (_super) {
         this.wText4.scaleX = this.wText4.scaleY = 0.5;
     };
     p.onTimer = function () {
-        this.timer = new egret.Timer(1000, 0);
+        this.timer = new egret.Timer(500, 0);
         this.timer.addEventListener(egret.TimerEvent.TIMER, this.timeFunc, this);
         this.timer.start();
     };
