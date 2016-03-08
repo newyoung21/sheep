@@ -208,7 +208,7 @@ class game extends egret.DisplayObjectContainer {
     }
 
     private onTimer():void{
-      this.timer  = new egret.Timer(800,0);
+      this.timer  = new egret.Timer(700,0);
         this.timer.addEventListener(egret.TimerEvent.TIMER,this.timeFunc,this);
         this.timer.start();
 
@@ -373,15 +373,15 @@ class game extends egret.DisplayObjectContainer {
             this.a++;
             this.createHpmc();
             if(this.a > 3){
-                if(this.getChildByName("01")){
-                    this.getChildByName("01").removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.starMove,this);
-                }
-                if(this.getChildByName("02")){
-                    this.getChildByName("02").removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.starMove,this);
-                }
-                if(this.getChildByName("03")){
-                    this.getChildByName("03").removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.starMove,this);
-                }
+
+                this.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.starMove,this);
+
+                //if(this.getChildByName("02")){
+                    //this.getChildByName("02").removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.starMove,this);
+               // }
+               //if(this.getChildByName("03")){
+                   // this.getChildByName("03").removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.starMove,this);
+               // }
 
                 this.m=false;
                 setTimeout(egret.Tween.removeAllTweens,600);
