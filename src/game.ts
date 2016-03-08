@@ -272,7 +272,7 @@ class game extends egret.DisplayObjectContainer {
         this.addChild(this.zhengzha);
         this.zhengzha.play(-1);
         this.zhengzha.y=this.obj.y;
-        this.zhengzha.x=this.obj.x+30;
+        this.zhengzha.x=this.obj.x+25;
         this.zhengzha.touchEnabled=true;
         this.zhengzha.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onMove,this)
         this.zhengzha.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.onMove,this);
