@@ -56,13 +56,13 @@ var game = (function (_super) {
         this.logo.x = 70;
         this.title = new egret.Bitmap();
         this.title.texture = RES.getRes("title_png");
-        this.title.x = 50;
+        this.title.x = 60;
         this.title.y = 100;
         this.addChild(this.title);
         this.start = new egret.Bitmap();
         this.start.texture = RES.getRes("start_btn_png");
         this.start.y = 550;
-        this.start.x = 80;
+        this.start.x = 70;
         this.addChild(this.start);
         this.start.touchEnabled = true;
         this.start.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouch, this);
