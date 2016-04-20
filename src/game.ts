@@ -86,7 +86,7 @@ class game extends egret.DisplayObjectContainer {
         this.logo.texture=RES.getRes("logo_png");
         this.addChild(this.logo);
         this.logo.y=200;
-        this.logo.x=70;
+        this.logo.x=75;
         this. title =new egret.Bitmap();
         this.title.texture=RES.getRes("title_png");
         this.title.x=60;
