@@ -57,7 +57,7 @@ var game = (function (_super) {
         this.title = new egret.Bitmap();
         this.title.texture = RES.getRes("title_png");
         this.title.x = 55;
-        this.title.y = 100;
+        this.title.y = 80;
         this.addChild(this.title);
         this.start = new egret.Bitmap();
         this.start.texture = RES.getRes("start_btn_png");
