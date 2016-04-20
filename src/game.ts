@@ -86,7 +86,7 @@ class game extends egret.DisplayObjectContainer {
         this.logo.texture=RES.getRes("logo_png");
         this.addChild(this.logo);
         this.logo.y=200;
-        this.logo.x=80;
+        this.logo.x=70;
         this. title =new egret.Bitmap();
         this.title.texture=RES.getRes("title_png");
         this.title.x=50;
@@ -95,14 +95,14 @@ class game extends egret.DisplayObjectContainer {
        this. start=new egret.Bitmap();
         this.start.texture=RES.getRes("start_btn_png");
         this.start.y=550;
-        this.start.x=70;
+        this.start.x=80;
         this.addChild(this.start);
         this.start.touchEnabled=true;
         this.start.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTouch,this);
         this.label =new egret.TextField();
         this.label.text="将小羊拖拽到下方的羊圈中";
         this.addChild(this.label);
-        this.label.width=340;
+        this.label.width=360;
         this.label.textAlign=egret.HorizontalAlign.RIGHT;
         this.label.y=500;
         this.label.strokeColor =0x00CC33;
@@ -156,7 +156,7 @@ class game extends egret.DisplayObjectContainer {
         this.panel=new egret.Bitmap();
         this.panel.texture=RES.getRes("panel_png");
         this.addChild(this.panel);
-        this.panel.y=225;
+        this.panel.y=25;
         this.panel.x=320;
         this.replay=new egret.Bitmap();
         this.replay.texture=RES.getRes("replay_btn_png");
